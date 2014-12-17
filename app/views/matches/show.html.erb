@@ -2,12 +2,12 @@
 
 <p>
   <strong>Player x:</strong>
-  <%= @match.player_x %>
+  <%= @match.player_x.name %>
 </p>
 
 <p>
   <strong>Player o:</strong>
-  <%= @match.player_o %>
+  <%= @match.player_o.name %>
 </p>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |

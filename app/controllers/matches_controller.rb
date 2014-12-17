@@ -24,6 +24,11 @@ class MatchesController < ApplicationController
     @match = Match.new(match_params)
     @match.save
     respond_with(@match)
+
+    
+      
+    
+
   end
 
   def update
@@ -42,6 +47,6 @@ class MatchesController < ApplicationController
     end
 
     def match_params
-      params.require(:match).permit(:player_x, :player_o)
+      params.require(:match).permit(:player_x_id, :player_o_id)
     end
 end
