@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   resources :matches
   resources :moves
 
-  
-
   devise_for :users
   resources :users
   

@@ -17,13 +17,13 @@
   </div> -->
   <div class="field">
     <%= f.label :player_o, 'Player O ' %><br>
-    <%= f.collection_select(:player_o, User.all, :id, :name) %>
+    <%= f.collection_select(:player_o, User.all, :id, :id) %>
   </div>
 
 
   <div class="field">
     <%= f.label :player_x, 'Player X' %><br>
-    <%= f.collection_select(:player_x, User.all, :id, :name) %>
+    <%= f.collection_select(:player_x, User.all, :id, :id) %>
   </div>
 
 
