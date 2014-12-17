@@ -22,34 +22,36 @@
     </div>
 
 
+    <%= nav_bar :fixed => :top, :responsive => true do %>
+
+    <%= menu_group :pull => :right do %>
+    <% if current_user %>
+    <%= menu_item "Log Out", destroy_user_session_path, method: :delete %>
+    <% else %>
+    <% end %>
+    <% end %>
+
+    <%= menu_group do %>
+
+    <%= menu_divider %>
+
+    <%= menu_item "All Matches", matches_path %>
+
+    <%= menu_item "New Match", new_match_path %>
+
+    <%= menu_item "All Users", users_path %>
+
+
+    <% end %>
   </header>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
-  <nav>
-   <ul>
-    <div>
-      <li>
-        <%= link_to 'All Players', users_path %>
-      </li>
-    </div>
-
-    <div>
-      <li>
-        <%= link_to 'All Matches', matches_path %>
-      </li>
-    </div>
-
-    <div>
-      <li>
-        <%= link_to 'New Match', new_match_path %>
-      </li>
-    </div>
-
-  </ul>
-</nav>
+  
 
 <%= yield %>
 
 </body>
 </html>
+
+<% end %>
