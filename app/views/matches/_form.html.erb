@@ -11,14 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :player_x_id, 'Player X' %><br>
-    <%= f.collection_select(:player_x_id, User.all, :id, :name) %>
-  </div>
 
   <div class="field">
     <%= f.label :player_o_id, 'Select Opponent ' %><br>
-    <%= f.collection_select(:player_o_id, User.all, :id, :name) %>
+    <%= f.collection_select(:player_o_id, @users, :id, :name) %>
   </div>
   
   

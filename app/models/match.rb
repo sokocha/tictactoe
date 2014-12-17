@@ -10,6 +10,18 @@ class Match < ActiveRecord::Base
     available_squares.include?square_id
   end
 
+  def assign_value(user)
+    if user == player_x
+      'x'
+    else
+      'o'
+    end
+  end
+        
+def move_for_square(square_id)
+  moves.find_by(square_id: square_id)
+end
+
 
 
 

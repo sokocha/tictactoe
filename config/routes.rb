@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root to: "matches#index"
+  post 'matches/:id/make_move/:square_id', to: "matches#move", as: 'make_move'
   resources :matches
-  resources :moves
+  
 
   devise_for :users
   resources :users

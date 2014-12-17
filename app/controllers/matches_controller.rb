@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: [:show, :edit, :update, :destroy]
+  before_action :set_match, only: [:show, :edit, :update, :destroy, :move]
 
   respond_to :html
 
@@ -14,21 +14,24 @@ class MatchesController < ApplicationController
 
   def new
     @match = Match.new
+    @users = User.order('name ASC') - [current_user]
     respond_with(@match)
   end
 
   def edit
   end
 
+  def move
+    @match.moves.create!(user_id: current_user.id, square_id: params[:square_id],value: @match.assign_value(current_user))
+    redirect_to @match
+  end
+
   def create
     @match = Match.new(match_params)
+    @match.player_x = current_user
+    @users = User.order('name ASC') - [current_user]
     @match.save
     respond_with(@match)
-
-    
-      
-    
-
   end
 
   def update

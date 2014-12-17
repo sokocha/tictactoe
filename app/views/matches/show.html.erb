@@ -19,26 +19,101 @@
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>
 
-<table>
-  <thead>
-    <th>Tic Tac Toe</th>
-  </thead>
+<br>
+<br>
+<br>
 
-  <tr>
-    <th><%= link_to "Play",new_move_path  %></th>
-    <th>x</th>
-    <th>x</th>
-  </tr>
-  <tr>
-    <th>x</th>
-    <th>o</th>
-    <th>o</th>
-  </tr>
-  <tr>
-    <th>o</th>
-    <th>x</th>
-    <th>o</th>
-  </tr>
+<div id="board">
+ <table>
+   <tr id="row1">
+     <td class="square">
+       <% if @match.move_for_square(1) %>
+       <%= @match.move_for_square(1).value %>
+       <%else %>
+       <%= link_to "Play",make_move_path(@match, square_id:1), method: :post  %>
+       <%end%>
+     </td>
 
-</table>
+
+     <td class="square">
+       <% if @match.move_for_square(2) %>
+       <%= @match.move_for_square(2).value %>
+       <%else %>
+       <%= link_to "Play",make_move_path(@match, square_id:2), method: :post  %>
+       <% end %>
+     </td>
+
+     <td class="square">
+       <% if @match.move_for_square(3) %>
+       <%= @match.move_for_square(3).value %>
+       <%else %>
+       <%= link_to "Play",make_move_path(@match, square_id:3), method: :post  %>
+       <% end %>
+     </td>
+
+
+     
+
+
+     <tr id="row2">
+       <td class="square">
+         <% if @match.move_for_square(4) %>
+         <%= @match.move_for_square(4).value %>
+         <%else %>
+         <%= link_to "Play",make_move_path(@match, square_id:4), method: :post2  %>
+         <% end %>
+       </td>
+
+
+       <td class="square">
+         <% if @match.move_for_square(5) %>
+         <%= @match.move_for_square(5).value %>
+         <%else %>
+         <%= link_to "Play",make_move_path(@match, square_id:5), method: :post2  %>
+         <% end %>
+       </td>
+
+
+       <td class="square">
+         <% if @match.move_for_square(6) %>
+         <%= @match.move_for_square(6).value %>
+         <%else %>
+         <%= link_to "Play",make_move_path(@match, square_id:6), method: :post2  %>
+         <% end %>
+       </td>
+     </tr>
+
+
+
+     <tr id="row3">
+       <td class="square">
+        
+           <% if @match.move_for_square(7) %>
+           <%= @match.move_for_square(7).value %>
+           <%else %>
+           <%= link_to "Play",make_move_path(@match, square_id:7), method: :post2  %>
+           <% end %>
+         </td>
+
+         <td class="square">
+           <% if @match.move_for_square(8) %>
+           <%= @match.move_for_square(8).value %>
+           <%else %>
+           <%= link_to "Play",make_move_path(@match, square_id:8), method: :post2  %>
+           <% end %>
+         </td>
+
+
+         <td class="square">
+           <% if @match.move_for_square(9) %>
+           <%= @match.move_for_square(9).value %>
+           <%else %>
+           <%= link_to "Play",make_move_path(@match, square_id:9), method: :post2  %>
+           <% end %>
+       </td>
+     </tr>
+   </table>
+ </div>
+
+
 
