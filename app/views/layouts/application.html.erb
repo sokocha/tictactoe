@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tictactoe</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+
+    <div class='login'>
+      <% if current_user %>
+      <%= current_user.email %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+      <% else %>
+      <%= link_to "Sign In", new_user_session_path %>
+      <%= link_to "Register", new_user_registration_path %>
+
+      <% end %>
+    </div>
+
+  </header>
+  <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
+         <nav>
+           <ul>
+            <div>
+              <li>
+                <%= link_to 'All Players', users_path %>
+              </li>
+            </div>
+
+            <div>
+              <li>
+                <%= link_to 'All Matches', matches_path %>
+              </li>
+            </div>
+
+            <div>
+              <li>
+                <%= link_to 'New Match', new_match_path %>
+              </li>
+            </div>
+
+          </ul>
+        </nav>
+
+<%= yield %>
+
+</body>
+</html>

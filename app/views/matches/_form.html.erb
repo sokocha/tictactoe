@@ -1,0 +1,34 @@
+<%= form_for(@match) do |f| %>
+  <% if @match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+      <ul>
+      <% @match.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--   <div class="field">
+    <%= f.label :player_x %><br>
+    <%= f.number_field :player_x %>
+  </div> -->
+  <div class="field">
+    <%= f.label :player_o, 'Player O ' %><br>
+    <%= f.collection_select(:player_o, User.all, :id, :name) %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :player_x, 'Player X' %><br>
+    <%= f.collection_select(:player_x, User.all, :id, :name) %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

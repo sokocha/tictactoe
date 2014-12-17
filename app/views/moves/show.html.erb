@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @move.user_id %>
+</p>
+
+<p>
+  <strong>Match:</strong>
+  <%= @move.match_id %>
+</p>
+
+<p>
+  <strong>Square:</strong>
+  <%= @move.square_id %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @move.value %>
+</p>
+
+<%= link_to 'Edit', edit_move_path(@move) %> |
+<%= link_to 'Back', moves_path %>
