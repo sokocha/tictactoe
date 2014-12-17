@@ -4,8 +4,9 @@ class MatchesController < ApplicationController
   respond_to :html
 
   def index
-    @matches = Match.all
-    respond_with(@matches)
+    # @matches = Match.all
+    # @matches = Match.where player_x: current_user.id
+    @matches = Match.where("player_x_id = ? or player_o_id = ?", current_user.id, current_user.id)
   end
 
   def show
