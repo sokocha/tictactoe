@@ -10,5 +10,35 @@
   <%= @match.player_o.name %>
 </p>
 
+<p>
+  <strong>Match ID:</strong>
+  <%= @match.id %>
+</p>
+
+
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>
+
+<table>
+  <thead>
+    <th>Tic Tac Toe</th>
+  </thead>
+
+  <tr>
+    <th><%= link_to "Play",new_move_path  %></th>
+    <th>x</th>
+    <th>x</th>
+  </tr>
+  <tr>
+    <th>x</th>
+    <th>o</th>
+    <th>o</th>
+  </tr>
+  <tr>
+    <th>o</th>
+    <th>x</th>
+    <th>o</th>
+  </tr>
+
+</table>
+

@@ -5,6 +5,7 @@
     <tr>
       <th>Player x</th>
       <th>Player o</th>
+      <th>Match ID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,9 @@
       <tr>
         <td><%= match.player_x.name %></td>
         <td><%= match.player_o.name %></td>
+        <td><%= match.id %></td>
+        
+
         <td><%= link_to 'Show', match %></td>
         <td><%= link_to 'Edit', edit_match_path(match) %></td>
         <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -24,6 +24,8 @@ class MovesController < ApplicationController
     @move = Move.new(move_params)
     @move.save
     respond_with(@move)
+
+
   end
 
   def update
