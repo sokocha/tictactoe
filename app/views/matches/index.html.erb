@@ -10,25 +10,36 @@
     </tr>
   </thead>
 
+
   <tbody>
     <% @matches.each do |match| %>
-      <tr>
-        <td><%= image_tag match.player_x.try(:user_image) %>
-          <br>
-          <%= match.player_x.try(:name)%></td>
+    <tr>
+      <td><%= image_tag match.player_x.try(:user_image) %>
+        <br>
+       <%= link_to "#{match.player_x.try(:name)}", user_path(match.player_x.id)  %> </td>
         <td><%= image_tag match.player_o.try(:user_image) %>
           <br>
-          <%= match.player_o.try(:name) %></td>
-        
+          <%= link_to "#{match.player_o.try(:name)}", user_path(match.player_o.id)  %></td>
 
-        <td><%= link_to 'Show', match %></td>
-        
-        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <% if match.winner_id == match.player_x.id %>
+          <td> <%= match.player_x.name %></td>
+          <% elsif match.winner_id == match.player_o.id %>
+          <td> <%= match.player_o.name %></td>
+          <% else %>
+          <td><p> There is no winner</p></td>
+          <% end %>
 
-<br>
+          
+
+
+          <td><%= link_to 'Show', match %></td>
+
+          <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
 
 

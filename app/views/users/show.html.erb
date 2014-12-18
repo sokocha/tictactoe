@@ -5,7 +5,7 @@
   <tr>
     <td>
 <p>
-  <strong>Name:</strong>
+  <strong>Name</strong>
   </td>
   <td>
   <%= @user.name %>
@@ -16,14 +16,24 @@
 <tr>
   <td>
 <p>
-  <strong>Photo:</strong>
+  <strong>Photo</strong>
 </td>
 <td>
   <%= image_tag @user.user_image %>
 </p>
+
 </td>
 </tr>
+<tr>
+  <td>
+    <p><strong>Wins</strong></p>
+  </td>
+<td>
+<%= Match.all.where(winner_id: @user.id).count %>
+</td>
+</tr>
+
 </table>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user) %> 
 <%= link_to 'Back', users_path %>

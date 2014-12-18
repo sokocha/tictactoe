@@ -27,14 +27,15 @@
     <%= menu_group do %>
 
     <%= menu_divider %>
-
-    <%= menu_item "#{current_user.name}" %>
+<% if current_user %>
+    <%= menu_item "#{current_user.try(:name)}",  user_path(:current_user.id) %>
+    <% end %>
 
     <%= menu_item "All Matches", matches_path %>
 
     <%= menu_item "Arena", new_match_path %>
 
-    <%= menu_item "All Users", users_path %>
+    <%= menu_item "All Players", users_path %>
 
 
 
