@@ -12,7 +12,8 @@
     
 
     
-    <%= nav_bar :brand => "xoxo",:brand_link => matches_path,:fixed => :top, :responsive => true do %>
+    <%= nav_bar :brand => "xoxo",:brand_link => new_user_session_path,:fixed => :top, :responsive => true do %>
+   
 
 
     <%= menu_group :pull => :right do %>
@@ -39,7 +40,9 @@
     <%= menu_item "Arena", new_match_path %>
     <% end %>
 
+  <% if current_user %>
     <%= menu_item "All Players", users_path %>
+    <% end %>
 
 
 

@@ -35,5 +35,7 @@
 
 </table>
 
+<% if @user == current_user.id %>
 <p><%= link_to 'Edit', edit_user_path(@user) %> 
 <%= link_to 'Back', users_path %></p>
+<% end %>
