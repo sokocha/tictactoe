@@ -1,4 +1,5 @@
 class MatchesController < ApplicationController
+  
   before_action :set_match, only: [:show, :edit, :update, :destroy, :move]
 
   respond_to :html

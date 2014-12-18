@@ -169,7 +169,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  cancancan
+  cancancan (~> 1.9)
   carrierwave (= 0.9.0)
   coffee-rails (~> 4.0.0)
   devise

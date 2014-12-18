@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
+gem 'cancancan', '~> 1.9'
 gem 'rmagick'
 gem 'carrierwave', '0.9.0'
 gem "twitter-bootstrap-rails"
-gem 'cancancan'
+
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
