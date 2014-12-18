@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  root to: "matches#index"
+  root to: "home#index"
   post 'matches/:id/make_move/:square_id', to: "matches#move", as: 'make_move'
   resources :matches
   
 
   devise_for :users
   resources :users
+
+  
+
   
 
   # The priority is based upon order of creation: first created -> highest priority.

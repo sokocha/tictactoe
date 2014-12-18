@@ -42,6 +42,10 @@ GEM
       slop (~> 3.6)
     callsite (0.0.11)
     cancancan (1.9.2)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -120,6 +124,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rmagick (2.13.4)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -165,6 +170,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   cancancan
+  carrierwave (= 0.9.0)
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 2.0)
@@ -175,6 +181,7 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   rails (= 4.1.8)
+  rmagick
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring

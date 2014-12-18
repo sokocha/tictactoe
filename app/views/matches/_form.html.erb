@@ -11,14 +11,20 @@
     </div>
   <% end %>
 
+  <div class="container1">
 
+<div class="form">
   <div class="field">
     <%= f.label :player_o_id, 'Select Opponent ' %><br>
     <%= f.collection_select(:player_o_id, @users, :id, :name) %>
   </div>
   
-  
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>
+  </div>
+  </div>
 <% end %>
+
+

@@ -102,7 +102,7 @@ end
 
   def set_winner(user_id)
     self.winner_id=user_id
-    save
+    self.save
   end
 
     

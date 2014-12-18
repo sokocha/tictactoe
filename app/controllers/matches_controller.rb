@@ -23,8 +23,12 @@ class MatchesController < ApplicationController
   end
 
   def move
-    @match.moves.create!(user_id: current_user.id, square_id: params[:square_id],value: @match.assign_value(current_user))
-    redirect_to @match
+    @move = Move.new(match_id: @match.id, user_id: current_user.id, square_id: params[:square_id], value: @match.assign_value(current_user))
+    if @move.save
+      redirect_to @match
+    else
+      render :show
+    end
   end
 
   def create
@@ -46,11 +50,11 @@ class MatchesController < ApplicationController
   end
 
   private
-    def set_match
-      @match = Match.find(params[:id])
-    end
+  def set_match
+    @match = Match.find(params[:id])
+  end
 
-    def match_params
-      params.require(:match).permit(:player_x_id, :player_o_id)
-    end
+  def match_params
+    params.require(:match).permit(:player_x_id, :player_o_id)
+  end
 end

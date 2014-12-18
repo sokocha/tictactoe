@@ -13,3 +13,102 @@
  *= require_tree .
  *= require_self
  */
+
+
+
+ table{
+   margin: 40px auto;
+ }
+
+ th {
+   padding: 10px;
+   background: #ff7f50 ;
+ }
+
+ td{
+   border: 4px solid black;
+   width: 170px;
+   padding: 10px;
+   background: #f8f8f8;
+   text-align:center;
+ }
+
+ img {
+  max-width: 50px;
+  border-radius: 100px;
+ }
+
+ /*fdjsladsfjlas*/
+ 
+
+ body {
+   background-color: white;
+ }
+
+ .container1 {
+   max-width: 250px;
+   margin: 20px auto;
+ }
+
+/* h2 {
+   width: 100%;
+   margin: 1em 0 .5em 1.2em;
+   padding: 0;
+   color: rgba(255,255,255,.2)
+ }*/
+
+
+
+ .form {
+   width: 100%;
+   background-color: rgba(0,128,128,.4);
+   text-align: center;
+   padding: 1.25em;
+   border-radius: 5px;
+ }
+
+ input {
+   margin: 0 0 .4em 0;
+   width: 100%;
+   height: 35px;
+   border-radius: 5px;
+   box-shadow: 1px 1px 1px rgba(0,0,0,.01);
+   border: 0;
+   border-bottom: 5px solid rgba(0,0,0,.12);
+   line-height: 40px;
+ }
+
+
+
+ [type='submit'] {
+   color: white;
+   background-color: #ff7f50;
+   font-weight: 600;
+ }
+
+ [type='field']:focus {
+   border: 0;
+   border-bottom: 5px solid #2980b9;
+   color: #2c3e50;
+   outline: none;
+ }
+
+ .square {
+  width: 100px;
+  height: 100px;
+ }
+
+ h2 { 
+  text-align: center;}
+
+  tr {
+    text-align: center;
+  }
+
+  p{
+    text-align: center;
+  }
+
+
+
+  

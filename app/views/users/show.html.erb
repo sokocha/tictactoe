@@ -1,14 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+
+<table>
+  <tr>
+    <td>
 <p>
   <strong>Name:</strong>
+  </td>
+  <td>
   <%= @user.name %>
+  </td>
 </p>
+</tr>
 
+<tr>
+  <td>
 <p>
-  <strong>Avatar:</strong>
-  <%= @user.avatar %>
+  <strong>Photo:</strong>
+</td>
+<td>
+  <%= image_tag @user.user_image %>
 </p>
+</td>
+</tr>
+</table>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

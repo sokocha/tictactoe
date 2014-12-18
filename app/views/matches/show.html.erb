@@ -1,23 +1,30 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Player x:</strong>
-  <%= @match.player_x.name %>
-</p>
+<h2>Today's Matchup</h2>
+<% if @move && @move.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@move.errors.count, "error") %> prohibited this move from being saved:</h2>
 
-<p>
-  <strong>Player o:</strong>
-  <%= @match.player_o.name %>
-</p>
+    <ul>
+    <% @move.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-<p>
-  <strong>Match ID:</strong>
-  <%= @match.id %>
-</p>
+<table>
+  <tr>
+    <td><%=image_tag @match.player_x.user_image %>
+    <p><%= @match.player_x.name %></p>
+    </td>
+    <td>
+      <%=image_tag @match.player_o.user_image %>
+      <p><%= @match.player_o.name %></p>
+    </td>
+  </tr>
+</table>
 
-
-
-<%= link_to 'Back', matches_path %>
 
 <br>
 <br>

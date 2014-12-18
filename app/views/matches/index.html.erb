@@ -1,4 +1,4 @@
-<h1>Listing matches</h1>
+<h2>My Matches</h2>
 
 <table>
   <thead>
@@ -6,15 +6,19 @@
       <th>Player x</th>
       <th>Player o</th>
       <th>Winner</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= match.player_x.name %></td>
-        <td><%= match.player_o.name %></td>
+        <td><%= image_tag match.player_x.try(:user_image) %>
+          <br>
+          <%= match.player_x.try(:name)%></td>
+        <td><%= image_tag match.player_o.try(:user_image) %>
+          <br>
+          <%= match.player_o.try(:name) %></td>
         
 
         <td><%= link_to 'Show', match %></td>
@@ -27,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Match', new_match_path %>
+

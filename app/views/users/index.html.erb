@@ -1,4 +1,4 @@
-<h1>Listing users</h1>
+<h2>Players</h2>
 
 <table>
   <thead>
@@ -13,7 +13,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.avatar %></td>
+        <td><%=image_tag user.user_image %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
