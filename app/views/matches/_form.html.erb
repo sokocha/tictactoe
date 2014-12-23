@@ -1,30 +1,33 @@
-<%= form_for(@match) do |f| %>
+<div class="container1">
+  <%= form_for(@match) do |f| %>
   <% if @match.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+  <div id="error_explanation">
+    <h2><%= pluralize(@match.errors.count, "error") %> have occurred:</h2>
 
-      <ul>
+    <ul id="errors_list">
       <% @match.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
+    </ul>
+  </div>
   <% end %>
+</div>
 
-  <div class="container1">
+<div class="container1">
 
-<div class="form">
-  <div class="field">
-    <%= f.label :player_o_id, 'Select Opponent ' %><br>
-    <%= f.collection_select(:player_o_id, @users, :id, :name) %>
+  <div class="form">
+    <div class="field">
+      <%= f.label :player_o_id, 'Select Opponent ' %><br>
+      <%= f.collection_select(:player_o_id, @users, :id, :name) %>
+    </div>
+
+    <br>
+    <div class="actions">
+      <br>
+      <%= f.submit %>
+    </div>
   </div>
-  
-  <br>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-  </div>
-  </div>
+</div>
 <% end %>
 
 

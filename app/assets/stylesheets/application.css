@@ -117,5 +117,16 @@
     font-size: 85px;
   }
 
+  div#error_explanation {
+    
+    width: 65%;
+    margin: 0 auto;
+    color: turquoise;
+    background-color: black;
+    list-style-type: none;
+  }
+
+
+
 
   

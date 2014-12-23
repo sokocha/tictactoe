@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
+    <% @users.find_each do |user| %>
       <tr>
         <td><%= link_to "#{user.name}", user_path(user.id) %></td>
         <td><%=image_tag user.user_image %></td>

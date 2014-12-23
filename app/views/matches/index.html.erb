@@ -12,7 +12,7 @@
 
 
   <tbody>
-    <% @matches.each do |match| %>
+    <% @matches.find_each do |match| %>
     <tr>
       <td><%= image_tag match.player_x.try(:user_image) %>
         <br>
