@@ -26,6 +26,7 @@ class MatchesController < ApplicationController
   def move
     @move = Move.new(match_id: @match.id, user_id: current_user.id, square_id: params[:square_id], value: @match.assign_value(current_user))
     if @move.save
+      @match.match_won(@match.player_x.id, @match.player_o.id)
       redirect_to @match
     else
       render :show
@@ -37,7 +38,7 @@ class MatchesController < ApplicationController
     @match.player_x = current_user
     @users = User.order('name ASC') - [current_user]
     @match.save
-    respond_with(@match)
+    respond_with @match
   end
 
   def update

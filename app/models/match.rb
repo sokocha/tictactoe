@@ -2,7 +2,8 @@ class Match < ActiveRecord::Base
   belongs_to :player_x, class_name: 'User'
   belongs_to :player_o, class_name: 'User'
   has_many :moves
-  # after_create :winning_combo? 
+  # validate :match_won
+  
   
 
 
@@ -59,16 +60,10 @@ end
     end
   end
 
-  def is_match_active?
-    moves.count < 9 && self.winner_id.nil?
-  end
-
-
-
-
+  
 
   def add_move(user_id, square_id)
-    moves.create!(user_id: user_id, square_id: square_id)
+    Move.create!(user_id: user_id, square_id: square_id)
     # if my_turn?(user_id)
     #   moves.create!(user_id: user_id, square_id: square_id)
     # else
@@ -77,27 +72,9 @@ end
     # end
   end
 
-  # def user_played_squares(user)
-  #   user.moves.map {|move| move.square_id}.uniq
-  #   # m.user_played_squares(s)
-  # end
 
   def get_player_combo(user_id)
     moves.map {|move| move.square_id if move.user_id==user_id}.compact
-  end
-
-
-
-  WIN_LINES = [[1,2,3],[1,4,7],[1,5,9],[2,5,8],[3,5,7],[3,6,9],[4,5,6],[7,8,9]]
-
-  def match_won
-    WIN_LINES.each do |combo|
-      if (get_player_combo(player_x_id) & combo).sort == combo.sort
-        set_winner(player_x_id)
-      elsif (get_player_combo(player_o_id) & combo).sort == combo.sort
-        set_winner(player_o_id)
-      end
-    end
   end
 
   def set_winner(user_id)
@@ -105,10 +82,46 @@ end
     self.save
   end
 
-    
+  def set_loser(user_id)
+    self.loser_id = user_id
+    self.save
+  end
+
+  
 
 
 
+  def set_match_status
+    if moves.count < 9 && self.winner_id.nil?
+      self.update(status: 'active')
+    elsif winner_id
+      self.update(status: 'won')
+    elsif moves.count == 9 && self.winner_id.nil?
+      self.update(status: 'draw')
+    else
+      self.update(status: 'draw')
+    end
+  end
+
+
+  WIN_LINES = [[1,2,3],[1,4,7],[1,5,9],[2,5,8],[3,5,7],[3,6,9],[4,5,6],[7,8,9]]
+
+
+  def match_won(player_x_id, player_o_id)
+    WIN_LINES.each do |combo|
+      if (get_player_combo(player_x_id) & combo).sort == combo.sort
+        set_winner(player_x_id)
+        set_loser(player_o_id)
+        set_match_status
+      elsif (get_player_combo(player_o_id) & combo).sort == combo.sort
+        set_winner(player_o_id)
+        set_loser(player_x_id)
+        set_match_status
+      else
+        set_match_status
+      end
+    end
+  end
 
 
 end

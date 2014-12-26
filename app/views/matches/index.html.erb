@@ -6,7 +6,8 @@
       <th>Player X</th>
       <th>Player O</th>
       <th>Winner</th>
-      <th colspan="4"></th>
+      <th>Status</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -16,7 +17,7 @@
     <tr>
       <td><%= image_tag match.player_x.try(:user_image) %>
         <br>
-       <%= link_to "#{match.player_x.try(:name)}", user_path(match.player_x.id)  %> </td>
+        <%= link_to "#{match.player_x.try(:name)}", user_path(match.player_x.id)  %> </td>
         <td><%= image_tag match.player_o.try(:user_image) %>
           <br>
           <%= link_to "#{match.player_o.try(:name)}", user_path(match.player_o.id)  %></td>
@@ -28,6 +29,8 @@
           <% else %>
           <td><p> There is no winner</p></td>
           <% end %>
+
+          <td> <%= match.status %></td>
 
           
 
