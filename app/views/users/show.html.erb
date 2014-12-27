@@ -33,6 +33,26 @@
 </td>
 </tr>
 
+<tr>
+  <td>
+    <p><strong>Losses</strong></p>
+  </td>
+<td>
+<%= Match.all.where(loser_id: @user.id).count %>
+</td>
+</tr>
+
+
+<tr>
+  <td>
+    <p><strong>Draws</strong></p>
+  </td>
+<td>
+<%= (Match.where("player_x_id = ? or player_o_id = ?", @user.id, @user.id)).where(status: "draw").count %>
+</td>
+</tr>
+
+
 </table>
 
 <% if @user == current_user.id %>

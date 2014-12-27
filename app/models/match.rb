@@ -78,12 +78,12 @@ end
   end
 
   def set_winner(user_id)
-    self.winner_id=user_id
+    self.update(winner_id: user_id)
     self.save
   end
 
   def set_loser(user_id)
-    self.loser_id = user_id
+    self.update(loser_id: user_id)
     self.save
   end
 
@@ -122,6 +122,15 @@ end
       end
     end
   end
+
+  def drawn_matches(user_id)
+    player_x_matches = Match.where(player_x_id: user.id)
+    x_total = player_x_matches.where(status: 'draw').count
+    player_o_matches = Match.where(player_o_id: user.id)
+    o_total = player_o_matches.where(status: 'draw').count
+  end
+
+
 
 
 end

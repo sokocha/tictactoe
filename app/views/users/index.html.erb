@@ -6,6 +6,8 @@
       <th>Name</th>
       <th>Avatar</th>
       <th>Wins</th>
+      <th>Losses</th>
+      <th>Draws</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,12 +21,21 @@
         
         <!-- <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
         
-        <td> <%=  Match.all.where(winner_id: user.id).count
+        <td> <%=  Match.where(winner_id: user.id).count
  %> </td>
+        <td> <%= Match.where(loser_id: user.id).count %></td>
+  
+        <td><%= (Match.where("player_x_id=? or player_o_id=?", user.id, user.id)).where(status: "draw").count
+ %></td>
+
+       
+       
+       
       </tr>
     <% end %>
   </tbody>
 </table>
+
 
 <br>
 
