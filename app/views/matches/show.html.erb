@@ -3,7 +3,7 @@
 <h2>Today's Matchup</h2>
 <% if @move && @move.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@move.errors.count, "error") %> prohibited this move from being saved:</h2>
+    <!-- <h2><%= pluralize(@move.errors.count, "error") %> prohibited this move from being saved:</h2> -->
 
     <ul>
     <% @move.errors.full_messages.each do |message| %>

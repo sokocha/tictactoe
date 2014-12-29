@@ -26,18 +26,29 @@
           <td> <%= match.player_x.name %></td>
           <% elsif match.winner_id == match.player_o.id %>
           <td> <%= match.player_o.name %></td>
+          <% elsif match.status == "active" %>
+          <td> <p>To be decided...</p></td>
+          <% elsif match.moves.count == 0 %>
+          <td> <p>Make a move!</p></td>
           <% else %>
-          <td><p> There is no winner</p></td>
+          <td><p> Draw means no winners!</p></td>
           <% end %>
-
+          
+          <% if match.status == nil %>
+          <td> <p> Match has not begun</p></td>
+          <% else %>
           <td> <%= match.status %></td>
+          <% end %>
 
           
 
+          <% if match.status == "active" || match.status == nil %>
+          <td><%= link_to 'Play', match %></td>
+          <% else %>
+          <td><%= link_to 'Show', match  %></td>
+          <% end %>
 
-          <td><%= link_to 'Show', match %></td>
-
-          <!-- <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+           <!-- <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
         </tr>
         <% end %>
       </tbody>

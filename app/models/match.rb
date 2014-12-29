@@ -123,12 +123,99 @@ end
     end
   end
 
-  def drawn_matches(user_id)
-    player_x_matches = Match.where(player_x_id: user.id)
-    x_total = player_x_matches.where(status: 'draw').count
-    player_o_matches = Match.where(player_o_id: user.id)
-    o_total = player_o_matches.where(status: 'draw').count
+
+EDGE = [2,4,6,8]
+
+CORNER = [1,3,7,9]
+ 
+CENTER = [5]
+
+TRIANGLE_CENTER = [[1,5,3],[1,5,7],[5,7,9],[3,5,9]]
+
+TRIANGLE_RIGHT = [[1,3,7],[1,3,9],[1,7,9],[3,9,7]]
+
+def shuffler(array,value)
+  array.shuffle.pop(value)
+end
+
+ 
+#  EDGE
+# a) play center 5
+add_move(59,5)
+
+#    if opp plays 2, play 7 or 9
+#    if opp plays 4, play 3 or 9
+#    if opp plays 6, play 1 or 7
+#    if opp plays 8, play 1 or 3
+def opp_plays_edge
+  # Should be playing from available_squares only
+  if total_played_squares.include?2
+    match.add_move(59,match.shuffler([7,9],1).join(",").to_i)
+  elsif total_played_squares.include?4
+    match.add_move(59,match.shuffler([3,9],1).join(",").to_i)
+  elsif total_played_squares.include?6
+    match.add_move(59,match.shuffler([1,7],1).join(",").to_i)
+  elsif total_played_squares.include?8
+    match.add_move(59,match.shuffler([1,3],1).join(",").to_i)
   end
+end
+
+
+# c) complete TRIANGLE_CENTER
+# get_player_combo(59)
+comp_squares = match.get_player_combo(match.player_x_id)
+
+
+# and use it to iterate through TRIANGLE_CENTER. 
+
+
+TRIANGLE_CENTER.collect do |sub_array|
+  sub_array & [1,3] 
+end
+a = _
+victory = a.collect {|array| array.count}
+
+# index of everywhere in array where comp has 2 of 3 winning combos
+index_positions = (victory.each_index.select{|i| victory[i] == 2}).join(',').to_i
+
+
+# remaining number to win (as array)
+winning_move = (TRIANGLE_CENTER[index_positions] - comp_squares).join(',').to_i
+
+match.add_move(59,winning_move)
+
+
+
+# Find where the intersection count is 2
+# then play the remaining square by subtracting the player_combo from the given TRIANGLE_CENTER.
+
+
+
+# d) win
+
+# CORNER1
+# a) play center 5
+# b) if opp plays 1, play 9
+#    if opp plays 3, play 7
+#    if opp plays 7, play 3
+#    if opp plays 9, play 1
+# c) if opp plays edge, block
+# d) win 
+
+# CORNER2
+# a) play center 5
+# b) if opp plays 1, play 9
+#    if opp plays 3, play 7
+#    if opp plays 7, play 3
+#    if opp plays 9, play 1
+# c) if opp plays corner, block
+# d) if can win, win else block, else random (while winner_id is nil and moves.count<9)
+
+# BLOCK
+
+
+# WIN
+
 
 
 
