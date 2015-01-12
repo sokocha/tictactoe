@@ -5,12 +5,6 @@ class Match < ActiveRecord::Base
   # validate :match_won
   
   
-
-
-  def free_square?(square_id,available_squares)
-    available_squares.include?square_id
-  end
-
   def assign_value(user)
     if user == player_x
       'x'
@@ -18,10 +12,10 @@ class Match < ActiveRecord::Base
       'o'
     end
   end
-        
-def move_for_square(square_id)
-  moves.find_by(square_id: square_id)
-end
+
+  def move_for_square(square_id)
+    moves.find_by(square_id: square_id)
+  end
 
 
 
@@ -34,13 +28,17 @@ end
     [1,2,3,4,5,6,7,8,9]
   end
 
-
   def total_played_squares
     moves.collect {|move| move.square_id}
   end
 
   def available_squares
     self.starting_board - total_played_squares
+  end
+
+
+  def free_square?(square_id)
+    self.available_squares.include?square_id
   end
 
 
@@ -63,127 +61,155 @@ end
   
 
   def add_move(user_id, square_id)
-    Move.create!(user_id: user_id, square_id: square_id)
+    @move = Move.new(user_id: user_id, square_id: square_id, value: @match.assign_value(user_id))
+    @move.save
+  end
+
+
     # if my_turn?(user_id)
     #   moves.create!(user_id: user_id, square_id: square_id)
     # else
     #   puts "square is not available, or it's not your turn"
 
     # end
-  end
 
 
-  def get_player_combo(user_id)
-    moves.map {|move| move.square_id if move.user_id==user_id}.compact
-  end
-
-  def set_winner(user_id)
-    self.update(winner_id: user_id)
-    self.save
-  end
-
-  def set_loser(user_id)
-    self.update(loser_id: user_id)
-    self.save
-  end
-
-  
-
-
-
-  def set_match_status
-    if moves.count < 9 && self.winner_id.nil?
-      self.update(status: 'active')
-    elsif winner_id
-      self.update(status: 'won')
-    elsif moves.count == 9 && self.winner_id.nil?
-      self.update(status: 'draw')
-    else
-      self.update(status: 'draw')
+    def get_player_combo(user_id)
+      moves.map {|move| move.square_id if move.user_id==user_id}.compact
     end
-  end
+
+    def set_winner(user_id)
+      self.update(winner_id: user_id)
+      self.save
+    end
+
+    def set_loser(user_id)
+      self.update(loser_id: user_id)
+      self.save
+    end
 
 
-  WIN_LINES = [[1,2,3],[1,4,7],[1,5,9],[2,5,8],[3,5,7],[3,6,9],[4,5,6],[7,8,9]]
 
 
-  def match_won(player_x_id, player_o_id)
-    WIN_LINES.each do |combo|
-      if (get_player_combo(player_x_id) & combo).sort == combo.sort
-        set_winner(player_x_id)
-        set_loser(player_o_id)
-        set_match_status
-      elsif (get_player_combo(player_o_id) & combo).sort == combo.sort
-        set_winner(player_o_id)
-        set_loser(player_x_id)
-        set_match_status
+
+    def set_match_status
+      if moves.count < 9 && self.winner_id.nil?
+        self.update(status: 'active')
+      elsif winner_id
+        self.update(status: 'won')
+      elsif moves.count == 9 && self.winner_id.nil?
+        self.update(status: 'draw')
       else
-        set_match_status
+        self.update(status: 'draw')
       end
     end
-  end
 
 
-EDGE = [2,4,6,8]
+    WIN_LINES = [[1,2,3],[1,4,7],[1,5,9],[2,5,8],[3,5,7],[3,6,9],[4,5,6],[7,8,9]]
 
-CORNER = [1,3,7,9]
- 
-CENTER = [5]
 
-TRIANGLE_CENTER = [[1,5,3],[1,5,7],[5,7,9],[3,5,9]]
+    def match_won(player_x_id, player_o_id)
+      WIN_LINES.each do |combo|
+        if (get_player_combo(player_x_id) & combo).sort == combo.sort
+          set_winner(player_x_id)
+          set_loser(player_o_id)
+          set_match_status
+        elsif (get_player_combo(player_o_id) & combo).sort == combo.sort
+          set_winner(player_o_id)
+          set_loser(player_x_id)
+          set_match_status
+        else
+          set_match_status
+        end
+      end
+    end
 
-TRIANGLE_RIGHT = [[1,3,7],[1,3,9],[1,7,9],[3,9,7]]
 
-def shuffler(array,value)
-  array.shuffle.pop(value)
-end
+    # EDGE = [2,4,6,8]
 
- 
+    # CORNER = [1,3,7,9]
+
+    # CENTER = [5]
+
+    # TRIANGLE_CENTER = [[1,5,3],[1,5,7],[5,7,9],[3,5,9]]
+
+    # TRIANGLE_RIGHT = [[1,3,7],[1,3,9],[1,7,9],[3,9,7]]
+
+    # def shuffler(array,value)
+    #   array.shuffle.pop(value)
+    # end
+
+
 #  EDGE
-# a) play center 5
-add_move(59,5)
+# a) play center 5 for user.id of 59
 
-#    if opp plays 2, play 7 or 9
-#    if opp plays 4, play 3 or 9
-#    if opp plays 6, play 1 or 7
-#    if opp plays 8, play 1 or 3
-def opp_plays_edge
-  # Should be playing from available_squares only
-  if total_played_squares.include?2
-    match.add_move(59,match.shuffler([7,9],1).join(",").to_i)
-  elsif total_played_squares.include?4
-    match.add_move(59,match.shuffler([3,9],1).join(",").to_i)
-  elsif total_played_squares.include?6
-    match.add_move(59,match.shuffler([1,7],1).join(",").to_i)
-  elsif total_played_squares.include?8
-    match.add_move(59,match.shuffler([1,3],1).join(",").to_i)
-  end
-end
+
+# def first_move
+#   Move.create(match_id: self.id, user_id: whose_turn.id, square_id: 5, value: 'x')
+# end
+
+# def test_move(square_id)
+#   Move.create(match_id: self.id, user_id: whose_turn.id, square_id: square_id, value: 'o')
+# end
+
+# def opp_plays_edge
+#   if total_played_squares.include?2
+#     Move.create(match_id: self.id, user_id: whose_turn.id, square_id: shuffler([7,9],1).join(",").to_i, value: 'x')
+#   elsif total_played_squares.include?4
+#     Move.create(match_id: self.id, user_id: whose_turn.id, square_id: shuffler([3,9],1).join(",").to_i, value: 'x')
+#   elsif total_played_squares.include?6
+#     Move.create(match_id: self.id, user_id: whose_turn.id, square_id: shuffler([1,7],1).join(",").to_i, value: 'x')
+#   elsif total_played_squares.include?8
+#     Move.create(match_id: self.id, user_id: whose_turn.id, square_id: shuffler([1,3],1).join(",").to_i, value: 'x')
+#   end
+# end
 
 
 # c) complete TRIANGLE_CENTER
 # get_player_combo(59)
-comp_squares = match.get_player_combo(match.player_x_id)
+
+# def comp_squares
+#   self.get_player_combo(player_x_id)
+# end
 
 
 # and use it to iterate through TRIANGLE_CENTER. 
 
+# TRIANGLE_CENTER.collect do |sub_array|
+#   sub_array & match.comp_squares
+# end
+# a = _
+# victory = a.collect {|array| array.count}
 
-TRIANGLE_CENTER.collect do |sub_array|
-  sub_array & [1,3] 
-end
-a = _
-victory = a.collect {|array| array.count}
-
-# index of everywhere in array where comp has 2 of 3 winning combos
-index_positions = (victory.each_index.select{|i| victory[i] == 2}).join(',').to_i
+# index of everywhere in array where comp has 2 of 3 of triangle center
+# index_positions = (victory.each_index.select {|i| victory[i] == 2}).join(',').to_i
 
 
-# remaining number to win (as array)
-winning_move = (TRIANGLE_CENTER[index_positions] - comp_squares).join(',').to_i
+# remaining square to play to complete triangle (as array)
+# def triangle_completion
+#   (TRIANGLE_CENTER[index_positions] - match.comp_squares).join(',').to_i
+# end
 
-match.add_move(59,winning_move)
 
+
+# completes the triangle with a move
+# def third_move
+#   Move.create(match_id: self.id, user_id: whose_turn.id, square_id: triangle_completion, value: 'x')
+# end
+
+# Now I need to set up if statements of where to play the 4th and final move based on opp's move. So far in example comp played 5,7,9. Opp played 1,2 so far.
+
+# def fourth_move
+#   while match.status == 'active' && match.whose_turn == player_x
+#     if total_played_squares.include?8
+#       Move.create(match_id: match.id, user_id: match.whose_turn.id, square_id: 3, value: 'x')
+#     elsif total_played_squares.include?3
+#       Move.create(match_id: match.id, user_id: match.whose_turn.id, square_id: 8, value: 'x')
+#     else
+#       Move.create(match_id: match.id, user_id: match.whose_turn.id, square_id: 3, value: 'x')
+#     end
+#   end
+# end
 
 
 # Find where the intersection count is 2
