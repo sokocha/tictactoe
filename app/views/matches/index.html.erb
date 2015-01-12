@@ -1,59 +1,62 @@
-<h2>My Matches</h2>
+<body>
+  
 
-<table>
-  <thead>
-    <tr>
-      <th>Player X</th>
-      <th>Player O</th>
-      <th>Winner</th>
-      <th>Status</th>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
+  <h2>My Matches</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Player X</th>
+        <th>Player O</th>
+        <th>Winner</th>
+        <th>Status</th>
+        <th colspan="5"></th>
+      </tr>
+    </thead>
 
 
-  <tbody>
-    <% @matches.find_each do |match| %>
-    <tr>
-      <td><%= image_tag match.player_x.try(:user_image) %>
-        <br>
-        <%= link_to "#{match.player_x.try(:name)}", user_path(match.player_x.id)  %> </td>
-        <td><%= image_tag match.player_o.try(:user_image) %>
+    <tbody>
+      <% @matches.find_each do |match| %>
+      <tr>
+        <td><%= image_tag match.player_x.try(:user_image) %>
           <br>
-          <%= link_to "#{match.player_o.try(:name)}", user_path(match.player_o.id)  %></td>
+          <%= link_to "#{match.player_x.try(:name)}", user_path(match.player_x.id)  %> </td>
+          <td><%= image_tag match.player_o.try(:user_image) %>
+            <br>
+            <%= link_to "#{match.player_o.try(:name)}", user_path(match.player_o.id)  %></td>
 
-          <% if match.winner_id == match.player_x.id %>
-          <td> <%= match.player_x.name %></td>
-          <% elsif match.winner_id == match.player_o.id %>
-          <td> <%= match.player_o.name %></td>
-          <% elsif match.status == "active" %>
-          <td> <p>To be decided...</p></td>
-          <% elsif match.moves.count == 0 %>
-          <td> <p>Make a move!</p></td>
-          <% else %>
-          <td><p> Draw means no winners!</p></td>
+            <% if match.winner_id == match.player_x.id %>
+            <td> <%= match.player_x.name %></td>
+            <% elsif match.winner_id == match.player_o.id %>
+            <td> <%= match.player_o.name %></td>
+            <% elsif match.status == "active" %>
+            <td> <p>To be decided...</p></td>
+            <% elsif match.moves.count == 0 %>
+            <td> <p>Make a move!</p></td>
+            <% else %>
+            <td><p> Draw means no winners!</p></td>
+            <% end %>
+            
+            <% if match.status == nil %>
+            <td> <p> Match has not begun</p></td>
+            <% else %>
+            <td> <%= match.status %></td>
+            <% end %>
+
+            
+
+            <% if match.status == "active" || match.status == nil %>
+            <td><%= link_to 'Play', match %></td>
+            <% else %>
+            <td><%= link_to 'Show', match  %></td>
+            <% end %>
+
+            <!-- <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
           <% end %>
-          
-          <% if match.status == nil %>
-          <td> <p> Match has not begun</p></td>
-          <% else %>
-          <td> <%= match.status %></td>
-          <% end %>
+        </tbody>
+      </table>
 
-          
-
-          <% if match.status == "active" || match.status == nil %>
-          <td><%= link_to 'Play', match %></td>
-          <% else %>
-          <td><%= link_to 'Show', match  %></td>
-          <% end %>
-
-           <!-- <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <br>
-
+      <br>
+    </body>
 

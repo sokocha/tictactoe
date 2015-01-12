@@ -1,61 +1,65 @@
-<p id="notice"><%= notice %></p>
+<body>
+  
+
+  <p id="notice"><%= notice %></p>
 
 
-<table>
-  <tr>
-    <td>
-<p>
-  <strong>Name</strong>
-  </td>
-  <td>
-  <%= @user.name %>
-  </td>
-</p>
-</tr>
+  <table>
+    <tr>
+      <td>
+        <p>
+          <strong>Name</strong>
+        </td>
+        <td>
+          <%= @user.name %>
+        </td>
+      </p>
+    </tr>
 
-<tr>
-  <td>
-<p>
-  <strong>Photo</strong>
-</td>
-<td>
-  <%= image_tag @user.user_image %>
-</p>
+    <tr>
+      <td>
+        <p>
+          <strong>Photo</strong>
+        </td>
+        <td>
+          <%= image_tag @user.user_image %>
+        </p>
 
-</td>
-</tr>
-<tr>
-  <td>
-    <p><strong>Wins</strong></p>
-  </td>
-<td>
-<%= Match.all.where(winner_id: @user.id).count %>
-</td>
-</tr>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p><strong>Wins</strong></p>
+      </td>
+      <td>
+        <%= Match.all.where(winner_id: @user.id).count %>
+      </td>
+    </tr>
 
-<tr>
-  <td>
-    <p><strong>Losses</strong></p>
-  </td>
-<td>
-<%= Match.all.where(loser_id: @user.id).count %>
-</td>
-</tr>
-
-
-<tr>
-  <td>
-    <p><strong>Draws</strong></p>
-  </td>
-<td>
-<%= (Match.where("player_x_id = ? or player_o_id = ?", @user.id, @user.id)).where(status: "draw").count %>
-</td>
-</tr>
+    <tr>
+      <td>
+        <p><strong>Losses</strong></p>
+      </td>
+      <td>
+        <%= Match.all.where(loser_id: @user.id).count %>
+      </td>
+    </tr>
 
 
-</table>
+    <tr>
+      <td>
+        <p><strong>Draws</strong></p>
+      </td>
+      <td>
+        <%= (Match.where("player_x_id = ? or player_o_id = ?", @user.id, @user.id)).where(status: "draw").count %>
+      </td>
+    </tr>
 
-<% if @user == current_user.id %>
-<p><%= link_to 'Edit', edit_user_path(@user) %> 
-<%= link_to 'Back', users_path %></p>
-<% end %>
+
+  </table>
+
+  <% if @user == current_user.id %>
+  <p><%= link_to 'Edit', edit_user_path(@user) %> 
+    <%= link_to 'Back', users_path %></p>
+    <% end %>
+  </body>
